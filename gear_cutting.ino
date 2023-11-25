@@ -4,7 +4,7 @@
 
 LiquidCrystal_I2C lcd(0x27, 16, 2); // set the LCD address to 0x27, if new version please use 0x3F instead.
 
-// digital IO
+// digital IO pins for the buttons
 const int PIN_K1 = 3;
 const int PIN_K2 = 4;
 const int PIN_K3 = 5;
@@ -13,17 +13,21 @@ const int PIN_K4 = 6;
 // the key_delay is so we only register the button once
 const int key_delay = 200;
 
-int tooth_num = 1;
+int tooth_num = 0;
 int total_teeth = 10;
 
 long x = 0;
 
 // stepper
+// pin8 is PUL+
+// pin9 is DIR+
+// DIR- and PUL- are connected to ground
 AccelStepper stepper1(AccelStepper::DRIVER, 8, 9);
 
 void setup() {
-  lcd.init();  //initialize the lcd
-  lcd.backlight();  //open the backlight
+
+  lcd.init();  // initialize the lcd screen
+  lcd.backlight();  // open the backlight
 
   // buttons
   Serial.begin(115200);
@@ -32,9 +36,12 @@ void setup() {
   pinMode(PIN_K3, INPUT_PULLUP);
   pinMode(PIN_K4, INPUT_PULLUP);
 
-  stepper1.setMaxSpeed(200.0);
-  stepper1.setAcceleration(100.0);
+  stepper1.setMaxSpeed(400.0);
+  stepper1.setAcceleration(400.0);
+  
+  delay(1000);
   stepper1.moveTo(0);
+  delay(1000);
 
   show();
 
@@ -62,6 +69,12 @@ void show() {
   lcd.print(total_teeth);
 } // show
 
+void move() {
+  x = (float)tooth_num / (float)total_teeth * 360.0 * 50.0;    
+  delay(1000);
+	stepper1.moveTo(x);
+} // move 
+
 void loop() {
   
   if (!digitalRead(PIN_K1)) {
@@ -80,6 +93,7 @@ void loop() {
     tooth_num--;
     show();
     delay(key_delay);
+    move();
   }
 
   if (!digitalRead(PIN_K4)) {
@@ -89,11 +103,7 @@ void loop() {
     }
     show();
     delay(key_delay);
-
-    x = (float)tooth_num / (float)total_teeth * 360.0;    
-    delay(1000);
-	  stepper1.moveTo(x);
-
+    move();
   }
 
   stepper1.run();
