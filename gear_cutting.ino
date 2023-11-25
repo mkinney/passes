@@ -15,8 +15,7 @@ const int key_delay = 200;
 int tooth_num = 1;
 int total_teeth = 10;
 
-void setup()
-{
+void setup() {
   lcd.init();  //initialize the lcd
   lcd.backlight();  //open the backlight
 
@@ -27,12 +26,17 @@ void setup()
   pinMode(PIN_K3, INPUT_PULLUP);
   pinMode(PIN_K4, INPUT_PULLUP);
 
+  // steppers
+  pinMode(9,OUTPUT); // set Pin9 as PUL
+  pinMode(8,OUTPUT); // set Pin8 as DIR
+  //pinMode(13,OUTPUT); // set Pin13 as ENA+ (not 100% sure on this one)
+
   show();
 
-}
+} // setup
 
 void show() {
-   lcd.setCursor(0, 0);
+  lcd.setCursor(0, 0);
   lcd.print("Tooth num:");  // 1st line on lcd display
 
   // "clear" prior number
@@ -51,10 +55,9 @@ void show() {
 
   lcd.setCursor(13, 1);
   lcd.print(total_teeth);
-}
+} // show
 
-void loop()
-{
+void loop() {
   
   if (!digitalRead(PIN_K1)) {
     total_teeth--;
@@ -78,6 +81,25 @@ void loop()
     tooth_num++;
     show();
     delay(key_delay);
+
+    int x;
+    //digitalWrite(13,HIGH);
+    digitalWrite(8,HIGH); // set high level direction
+    for (x = 0; x < 400; x++) {
+      digitalWrite(9,HIGH); // Output high
+      delayMicroseconds(500); // set rotate speed
+      digitalWrite(9,LOW); // Output low
+      delayMicroseconds(500); // set rotate speed
+    }
+    delay(1000); //pause 1 second
+    digitalWrite(8,LOW); // set high level direction
+    for (x = 0; x < 400; x++) {
+      digitalWrite(9,HIGH);
+      delayMicroseconds(500);
+      digitalWrite(9,LOW);
+      delayMicroseconds(500);
+    }
+    delay(1000);
   }
 
-}
+} // loop
