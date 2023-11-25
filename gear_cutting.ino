@@ -84,13 +84,13 @@ void loop() {
 
   if (!digitalRead(PIN_K4)) {
     tooth_num++;
-    // TODO: if tooth_num >= total_teeth 
+    if (tooth_num >= total_teeth) {
+      tooth_num = 0;
+    }
     show();
     delay(key_delay);
 
-    x += 100;
-    //x = (tooth_num / total_teeth * 360.0 * 10000.0);
-    
+    x = (float)tooth_num / (float)total_teeth * 360.0;    
     delay(1000);
 	  stepper1.moveTo(x);
 
