@@ -16,12 +16,10 @@ const int key_delay = 200;
 int tooth_num = 1;
 int total_teeth = 10;
 
-long x = 100;
+long x = 0;
 
 // stepper
 AccelStepper stepper1(AccelStepper::DRIVER, 8, 9);
-//AccelStepper stepper1(AccelStepper::FULL2WIRE, 9, 8);
-//AccelStepper stepper1(AccelStepper::FULL4WIRE, 8, 9, 10, 11);
 
 void setup() {
   lcd.init();  //initialize the lcd
@@ -34,19 +32,9 @@ void setup() {
   pinMode(PIN_K3, INPUT_PULLUP);
   pinMode(PIN_K4, INPUT_PULLUP);
 
-  //stepper1.setMaxSpeed(200);
-  //stepper1.setAcceleration(50);
-
-  //stepper1.setMaxSpeed(2000); //20000 steps/second max
-  //stepper1.setSpeed(63.33);	//19 rpm
-
   stepper1.setMaxSpeed(200.0);
   stepper1.setAcceleration(100.0);
   stepper1.moveTo(0);
-
-  // stepper
-  //pinMode(9,OUTPUT); // set Pin9 as PUL
-  //pinMode(8,OUTPUT); // set Pin8 as DIR
 
   show();
 
@@ -100,26 +88,12 @@ void loop() {
     show();
     delay(key_delay);
 
-    //x += 10000;
-    x = (tooth_num / total_teeth * 360 * 1000);
-
-	  //delay(1000);
-	  //stepper1.moveTo(x);
-	  //stepper1.setMaxSpeed(200);
-	  //stepper1.setAcceleration(200);
-
-    x = rand() % 200;
+    x += 100;
+    //x = (tooth_num / total_teeth * 360.0 * 10000.0);
     
     delay(1000);
 	  stepper1.moveTo(x);
-	  stepper1.setMaxSpeed(200);
-	  stepper1.setAcceleration(200);
 
-    //stepper1.moveTo(x);
-    //delay(1000);
-    //stepper1.runSpeedToPosition(); // Blocks until in position
-    //stepper1.run();
-    //delay(1000);
   }
 
   stepper1.run();
