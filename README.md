@@ -24,8 +24,17 @@ Note: This 4 jaw chuck will spin a limited distance in either direction. So, you
 - Arduino/Keypad: 5 wires (ground, and 4 digital pins 3,4,5, and 6)
 - Arduino/Stepper driver: 3 wires (ground, digital pins 8 and 9)
 - Stepper motor/stepper driver: ensure each loop is together (in my case red/green is one loop, yellow/blue was the other loop); soldered on connector and cat 5 cable to make the cabling longer
-- Power Supply/Stepper driver: red V+, black "ground" is V-
+- Power Supply/Stepper driver: red V+, black "ground" is V- ; there should be a green light on the stepper driver (the red light should be off); there should be a green light on the power supply
 - Power Supply/Aruduino power(buck converter): red V+, black V-, DC barrel plug
+
+![](wiring.png)
+The Libre Office drawing is in this directory.
+
+# Buttons:
+- first button increases the total number of teeth
+- second button reduces the total number of teeth
+- third button goes back to the prior tooth
+- fourth button advances to the next tooth
 
 
 # Source code:
