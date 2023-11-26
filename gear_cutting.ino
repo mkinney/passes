@@ -19,8 +19,8 @@ int total_teeth = 10;
 long x = 0;
 
 // stepper
-// pin8 is PUL+
-// pin9 is DIR+
+// digital pin8 is PUL+
+// digital pin9 is DIR+
 // DIR- and PUL- are connected to ground
 AccelStepper stepper1(AccelStepper::DRIVER, 8, 9);
 
