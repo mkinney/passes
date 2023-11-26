@@ -4,7 +4,6 @@ Wanted the ability to mill multiple sides of something (also known as 3+1 millin
 
 I already had this item: [4 jaw chuck](https://a.aliexpress.com/_mOB9M1P) for when I setup a 4th axis on a PrintNC, I just needed a way to drive it.
 
-Note: This 4 jaw chuck will spin a limited distance in either direction. So, you need to make sure you don't hit the max (nor min) rotation. You can use the -Pass button to rotate backwards, if needed.
 
 # Components:
 - [4 jaw chuck with stepper](https://a.aliexpress.com/_mOB9M1P) (went with 50:1 option)

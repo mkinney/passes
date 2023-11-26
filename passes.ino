@@ -29,7 +29,6 @@ void setup() {
   lcd.init();  // initialize the lcd screen
   lcd.backlight();  // open the backlight
 
-
   Serial.begin(115200);
 
   // buttons
@@ -69,7 +68,10 @@ void show() {
 } // show
 
 void move() {
-  x = (float)pass / (float)total * 360.0 * 50.0;    
+  // stepper dips
+  // 1=OFF 2=ON 3=ON 4=ON 400 pulses/rev
+  // not sure why the magical number below works (derived from trial and error)
+  x = (float)pass / (float)total * 360.0 * 55.55;
   delay(1000);
 	stepper1.moveTo(x);
 } // move 
@@ -78,12 +80,14 @@ void loop() {
   
   if (!digitalRead(PIN_K1)) {
     total--;
+    pass = -1;
     show();
     delay(key_delay);
   }
 
   if (!digitalRead(PIN_K2)) {
     total++;
+    pass = -1;
     show();
     delay(key_delay);
   }
@@ -97,9 +101,6 @@ void loop() {
 
   if (!digitalRead(PIN_K4)) {
     pass++;
-    if (pass >= total) {
-      pass = 0;
-    }
     show();
     delay(key_delay);
     move();
