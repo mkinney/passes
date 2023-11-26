@@ -41,8 +41,8 @@ Typical use would be to change the number of passes you would want (example: 30 
 
 # Files:
 - source code [passes.ino](passes.ino)
-- stl for [lcd faceplate](lcd faceplate v1.stl)
-- stl for [keypad faceplate](keypad faceplate v1.stl)
+- stl for [lcd faceplate](lcd faceplate.stl)
+- stl for [keypad faceplate](keypad faceplate.stl)
 - wiring diagram [wiring.odg](wiring.odg)
 
 # keywords:
