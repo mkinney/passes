@@ -13,8 +13,8 @@ const int PIN_K4 = 6;
 // the key_delay is so we only register the button once
 const int key_delay = 200;
 
-int tooth_num = 0;
-int total_teeth = 10;
+int pass = 0;
+int total = 10;
 
 long x = 0;
 
@@ -29,19 +29,18 @@ void setup() {
   lcd.init();  // initialize the lcd screen
   lcd.backlight();  // open the backlight
 
-  // buttons
+
   Serial.begin(115200);
+
+  // buttons
   pinMode(PIN_K1, INPUT_PULLUP);
   pinMode(PIN_K2, INPUT_PULLUP);
   pinMode(PIN_K3, INPUT_PULLUP);
   pinMode(PIN_K4, INPUT_PULLUP);
 
+  // Note: It cannot really go this fast
   stepper1.setMaxSpeed(400.0);
   stepper1.setAcceleration(400.0);
-  
-  delay(1000);
-  stepper1.moveTo(0);
-  delay(1000);
 
   show();
 
@@ -49,28 +48,28 @@ void setup() {
 
 void show() {
   lcd.setCursor(0, 0);
-  lcd.print("Tooth num:");  // 1st line on lcd display
+  lcd.print("Pass:");  // 1st line on lcd display
 
   // "clear" prior number
-  lcd.setCursor(12, 0);
+  lcd.setCursor(6, 0);
   lcd.print("   ");
 
-  lcd.setCursor(12, 0);
-  lcd.print(tooth_num);
+  lcd.setCursor(7, 0);
+  lcd.print(pass);
 
   lcd.setCursor(0, 1); // 2nd line on lcd display
-  lcd.print("Total teeth:");
+  lcd.print("Total:");
 
   // "clear" prior number
-  lcd.setCursor(13, 1);
+  lcd.setCursor(6, 1);
   lcd.print("   ");
 
-  lcd.setCursor(13, 1);
-  lcd.print(total_teeth);
+  lcd.setCursor(7, 1);
+  lcd.print(total);
 } // show
 
 void move() {
-  x = (float)tooth_num / (float)total_teeth * 360.0 * 50.0;    
+  x = (float)pass / (float)total * 360.0 * 50.0;    
   delay(1000);
 	stepper1.moveTo(x);
 } // move 
@@ -78,28 +77,28 @@ void move() {
 void loop() {
   
   if (!digitalRead(PIN_K1)) {
-    total_teeth--;
+    total--;
     show();
     delay(key_delay);
   }
 
   if (!digitalRead(PIN_K2)) {
-    total_teeth++;
+    total++;
     show();
     delay(key_delay);
   }
 
   if (!digitalRead(PIN_K3)) {
-    tooth_num--;
+    pass--;
     show();
     delay(key_delay);
     move();
   }
 
   if (!digitalRead(PIN_K4)) {
-    tooth_num++;
-    if (tooth_num >= total_teeth) {
-      tooth_num = 0;
+    pass++;
+    if (pass >= total) {
+      pass = 0;
     }
     show();
     delay(key_delay);

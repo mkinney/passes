@@ -31,10 +31,10 @@ Note: This 4 jaw chuck will spin a limited distance in either direction. So, you
 The Libre Office drawing is in this directory.
 
 # Buttons:
-- first button increases the total number of teeth
-- second button reduces the total number of teeth
-- third button goes back to the prior tooth
-- fourth button advances to the next tooth
+- first button increases the total number of passes
+- second button reduces the total number of passes
+- third button goes back to the prior pass
+- fourth button advances to the next pass
 
 
 # Source code:
