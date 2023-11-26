@@ -4,7 +4,7 @@ Wanted the ability to mill multiple sides of something (also known as 3+1 millin
 
 I already had this item: [4 jaw chuck](https://a.aliexpress.com/_mOB9M1P) for when I setup a 4th axis on a PrintNC, I just needed a way to drive it.
 
-Note: This 4 jaw chuck will spin a limited distance in either direction. So, you need to make sure you don't hit the max (nor min) rotation.
+Note: This 4 jaw chuck will spin a limited distance in either direction. So, you need to make sure you don't hit the max (nor min) rotation. You can use the -Pass button to rotate backwards, if needed.
 
 # Components:
 - [4 jaw chuck with stepper](https://a.aliexpress.com/_mOB9M1P) (went with 50:1 option)
@@ -31,14 +31,19 @@ Note: This 4 jaw chuck will spin a limited distance in either direction. So, you
 The Libre Office drawing is in this directory.
 
 # Buttons:
-- first button increases the total number of passes
-- second button reduces the total number of passes
-- third button goes back to the prior pass
-- fourth button advances to the next pass
+- first button reduces the total number of passes (**-Total**)
+- second button increases the total number of passes (**+Total**)
+- third button goes back to the prior pass (**-Pass**)
+- fourth button advances to the next pass (**+Pass**)
+
+Typical use would be to change the number of passes you would want (example: 30 if you want 30 teeth gear). Make the first cut, then press the **+Pass** button to advance the chuck for the next cut. If you need to go back, you can press the **-Pass** button.
 
 
-# Source code:
-The source code is in this directory.
+# Files:
+- source code [passes.ino](passes.ino)
+- stl for [lcd faceplate](lcd faceplate v1.stl)
+- stl for [keypad faceplate](keypad faceplate v1.stl)
+- wiring diagram [wiring.odg](wiring.odg)
 
 # keywords:
 Gear cutting, poor man's fourth axis, automated dividing head
