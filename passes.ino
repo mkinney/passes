@@ -43,6 +43,10 @@ void setup() {
 
   show();
 
+  // get to "zero" position
+  delay(key_delay);
+  move();
+
 } // setup
 
 void show() {
@@ -69,7 +73,9 @@ void show() {
 
 void move() {
   // stepper dips
-  // 1=OFF 2=ON 3=ON 4=ON 400 pulses/rev
+  // 1=ON 2=ON 3=OFF 4=ON
+  // the motor can take 3.0A, so configured for 2.8A and full current
+  // 5=OFF 6=ON 7=ON 8=ON 400 pulses/rev
   // not sure why the magical number below works (derived from trial and error)
   x = (float)pass / (float)total * 360.0 * 55.55;
   delay(1000);
