@@ -6,6 +6,8 @@ I already had this item: [4 jaw chuck](https://a.aliexpress.com/_mOB9M1P) for wh
 
 ![](working.gif)
 
+![](front.jpg)
+
 
 # Components:
 - [4 jaw chuck with stepper](https://a.aliexpress.com/_mOB9M1P) (went with 50:1 option)
@@ -48,6 +50,7 @@ Typical use would be to change the number of passes you would want (example: 30 
 - stl for [lcd faceplate](lcd faceplate.stl)
 - stl for [keypad faceplate](keypad faceplate.stl)
 - wiring diagram [wiring.odg](wiring.odg)
+- documentation for front of box [boxdoc.odt](boxdoc.odt)
 
 # keywords:
 Gear cutting, poor man's fourth axis, automated dividing head
