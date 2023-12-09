@@ -32,7 +32,6 @@ I already had this item: [4 jaw chuck](https://a.aliexpress.com/_mOB9M1P) for wh
 - Power Supply/Aruduino power(buck converter): red V+, black V-, DC barrel plug
 
 ![](wiring.png)
-Note: The Libre Office drawing is in this directory.
 
 ![](internals.jpg)
 
@@ -46,11 +45,11 @@ Typical use would be to change the number of passes you would want (example: 30 
 
 
 # Files:
-- source code [passes.ino](passes.ino)
-- stl for [lcd faceplate](lcd faceplate.stl)
-- stl for [keypad faceplate](keypad faceplate.stl)
-- wiring diagram [wiring.odg](wiring.odg)
-- documentation for front of box [boxdoc.odt](boxdoc.odt)
+- source code: [passes.ino](passes.ino)
+- [lcd faceplate.stl)](lcd faceplate.stl)
+- [keypad faceplate.stl](keypad faceplate.stl)
+- wiring diagram: [wiring.odg](wiring.odg)
+- documentation for front of box: [boxdoc.odt](boxdoc.odt)
 
 # keywords:
 Gear cutting, poor man's fourth axis, automated dividing head
