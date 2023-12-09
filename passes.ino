@@ -1,3 +1,6 @@
+// Copyright 2023 Mike Kinney
+// license is the same as the Arduino license
+
 #include <Wire.h>
 #include <LiquidCrystal_I2C.h>
 #include <AccelStepper.h>
