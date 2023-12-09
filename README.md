@@ -4,6 +4,8 @@ Wanted the ability to mill multiple sides of something (also known as 3+1 millin
 
 I already had this item: [4 jaw chuck](https://a.aliexpress.com/_mOB9M1P) for when I setup a 4th axis on a PrintNC, I just needed a way to drive it. But, in the course of testing this, I swapped out the motor to [this one](https://www.amazon.com/gp/product/B0B6N36NQJ).
 
+[Video in action](working.mov)
+
 
 # Components:
 - [4 jaw chuck with stepper](https://a.aliexpress.com/_mOB9M1P) (went with 50:1 option)
@@ -28,7 +30,9 @@ I already had this item: [4 jaw chuck](https://a.aliexpress.com/_mOB9M1P) for wh
 - Power Supply/Aruduino power(buck converter): red V+, black V-, DC barrel plug
 
 ![](wiring.png)
-The Libre Office drawing is in this directory.
+Note: The Libre Office drawing is in this directory.
+
+![](internals.jpg)
 
 # Buttons:
 - first button reduces the total number of passes (**-Total**)
