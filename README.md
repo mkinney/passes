@@ -4,7 +4,7 @@ Wanted the ability to mill multiple sides of something (also known as 3+1 millin
 
 I already had this item: [4 jaw chuck](https://a.aliexpress.com/_mOB9M1P) for when I setup a 4th axis on a PrintNC, I just needed a way to drive it. But, in the course of testing this, I swapped out the motor to [this one](https://www.amazon.com/gp/product/B0B6N36NQJ).
 
-[Video in action](working.mov)
+![](working.gif)
 
 
 # Components:
