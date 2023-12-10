@@ -13,6 +13,11 @@ const int PIN_K2 = 4;
 const int PIN_K3 = 5;
 const int PIN_K4 = 6;
 
+// digital IO pins for interaction with Tormach USB IO
+// Pin 12 on Arduino is connected to NC0 on USB IO board
+// Pin Gnd on Arduino is connected to COMMON on USB IO board
+const int PIN_TORMACH = 12;
+
 // the key_delay is so we only register the button once
 const int key_delay = 200;
 
@@ -39,6 +44,9 @@ void setup() {
   pinMode(PIN_K2, INPUT_PULLUP);
   pinMode(PIN_K3, INPUT_PULLUP);
   pinMode(PIN_K4, INPUT_PULLUP);
+
+  // input
+  pinMode(PIN_TORMACH, INPUT_PULLUP);
 
   // Note: It cannot really go this fast
   stepper1.setMaxSpeed(400.0);
@@ -112,6 +120,14 @@ void loop() {
     pass++;
     show();
     delay(key_delay);
+    move();
+  }
+
+  if (!digitalRead(PIN_TORMACH)) {
+    // Note: This will spin the chuck because "M64 P0" is sent,
+    // but it will continue to spin until the "M65 P0" is sent.
+    pass++;
+    show();
     move();
   }
 
