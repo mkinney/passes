@@ -14,9 +14,11 @@ const int PIN_K3 = 5;
 const int PIN_K4 = 6;
 
 // digital IO pins for interaction with Tormach USB IO
-// Pin 12 on Arduino is connected to NC0 on USB IO board
-// Pin Gnd on Arduino is connected to COMMON on USB IO board
-const int PIN_TORMACH = 12;
+// Pin 11 on Arduino is connected to INPUT0 on USB IO board
+// Pin 12 on Arduino is connected to RELAY0NC on USB IO board
+// Pin Gnd on Arduino is connected to COMMON0 and INPUT0- on USB IO board
+const int PIN_TO_TORMACH = 11;
+const int PIN_FROM_TORMACH = 12;
 
 // the key_delay is so we only register the button once
 const int key_delay = 200;
@@ -25,6 +27,8 @@ int pass = 0;
 int total = 10;
 
 long x = 0;
+
+bool spinning = false;
 
 // stepper
 // digital pin8 is PUL+
@@ -45,8 +49,9 @@ void setup() {
   pinMode(PIN_K3, INPUT_PULLUP);
   pinMode(PIN_K4, INPUT_PULLUP);
 
-  // input
-  pinMode(PIN_TORMACH, INPUT_PULLUP);
+  // Tormach IO
+  pinMode(PIN_TO_TORMACH, OUTPUT);
+  pinMode(PIN_FROM_TORMACH, INPUT_PULLUP);
 
   // Note: It cannot really go this fast
   stepper1.setMaxSpeed(400.0);
@@ -57,6 +62,9 @@ void setup() {
   // get to "zero" position
   delay(key_delay);
   move();
+
+  // make sure we're not sending anything to Tormach at the beginning
+  digitalWrite(PIN_TO_TORMACH, LOW);
 
 } // setup
 
@@ -90,8 +98,17 @@ void move() {
   // not sure why the magical number below works (derived from trial and error)
   x = (float)pass / (float)total * 360.0 * 55.55;
   delay(1000);
+  spinning = true;
 	stepper1.moveTo(x);
 } // move 
+
+void test_send_low() {
+  digitalWrite(PIN_TO_TORMACH, LOW);
+}
+
+void test_send_high() {
+  digitalWrite(PIN_TO_TORMACH, HIGH);
+}
 
 void loop() {
   
@@ -123,14 +140,22 @@ void loop() {
     move();
   }
 
-  if (!digitalRead(PIN_TORMACH)) {
-    // Note: This will spin the chuck because "M64 P0" is sent,
-    // but it will continue to spin until the "M65 P0" is sent.
-    pass++;
-    show();
-    move();
+  if ((!spinning) && (digitalRead(PIN_FROM_TORMACH))) {
+      pass++;
+      show();
+      move();
   }
 
-  stepper1.run();
+  if (stepper1.run()) {
+    // still turning
+  } else {
+    if (spinning) {
+      // set the pin HIGH temporarily so Tormach can send the stop
+      spinning = false;
+      digitalWrite(PIN_TO_TORMACH, HIGH);
+      //delay(1000);
+      digitalWrite(PIN_TO_TORMACH, LOW);
+    }
+  }
 
 } // loop
