@@ -133,8 +133,9 @@ void loop() {
   }
 
   if (stepper1.run()) {
-    // still turning
+    // .run() returns true if it is still turning
   } else {
+    // once the stepper is done turning, turn off our boolean
     if (spinning) {
       spinning = false;
     }
