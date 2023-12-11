@@ -13,9 +13,9 @@ const int PIN_K2 = 4;
 const int PIN_K3 = 5;
 const int PIN_K4 = 6;
 
-// digital IO pins for interaction with Tormach USB IO
-// Pin 12 on Arduino is connected to RELAY0NC on USB IO board
-// Pin Gnd on Arduino is connected to COMMON0 on USB IO board
+// digital IO pins for interaction with Tormach USB IO Part#23616
+// Pin 12 on Arduino is connected to RELAY_0_NC on USB IO board
+// Pin Gnd on Arduino is connected to COMMON_0 on USB IO board
 const int PIN_FROM_TORMACH = 12;
 
 // the key_delay is so we only register the button once
@@ -100,14 +100,14 @@ void loop() {
   
   if (!digitalRead(PIN_K1)) {
     total--;
-    pass = -1;
+    pass = 0;
     show();
     delay(key_delay);
   }
 
   if (!digitalRead(PIN_K2)) {
     total++;
-    pass = -1;
+    pass = 0;
     show();
     delay(key_delay);
   }
