@@ -4,6 +4,8 @@ Wanted the ability to mill multiple sides of something (also known as 3+1 millin
 
 I already had this item: [4 jaw chuck](https://a.aliexpress.com/_mOB9M1P) for when I setup a 4th axis on a PrintNC, I just needed a way to drive it. But, in the course of testing this, I swapped out the motor to [this one](https://www.amazon.com/gp/product/B0B6N36NQJ).
 
+I used double sided tape to hold the items in the project box. I also had to mill out the base of the chuck as they were slightly smaller than 3/8". I plan on using T-nuts to hold the chuck down on to the table.
+
 ![](working.gif)
 
 ![](front.jpg)
@@ -43,6 +45,19 @@ I already had this item: [4 jaw chuck](https://a.aliexpress.com/_mOB9M1P) for wh
 
 Typical use would be to change the number of passes you would want (example: 30 if you want 30 teeth gear). Make the first cut, then press the **+Pass** button to advance the chuck for the next cut. If you need to go back, you can press the **-Pass** button.
 
+# Tormach integration
+
+Integrates with Tormach mill using their [USB M-Code I/O Interface Kit](https://tormach.com/usb-m-code-io-interface-kit-32616.html)
+
+Here is how I wired it:
+![](tormach_integration.png)
+
+Connect the USB of the 32616 to the PathPilot computer. Go into settings and enable the "USB IO Kit". Go to the Status tab to see logging as well as new buttons:
+
+![](pathpilot_settings_new_buttons.jpg)
+
+Send GCODE "M64 P0" to do the same as the **Pass+** button. Be sure to send the "M65 P0" on a different line, but soon after. Pressing the "OUT1" button is the same as sending the GCODE.
+
 
 # Files:
 - source code: [passes.ino](passes.ino)
@@ -52,4 +67,4 @@ Typical use would be to change the number of passes you would want (example: 30 
 - documentation for front of box: [boxdoc.odt](boxdoc.odt)
 
 # keywords:
-Gear cutting, poor man's fourth axis, automated dividing head
+gear cutting, poor man's fourth axis, automated dividing head, tormach, mill, USB io, arduino, index table, dividing head, gears, 3+1
