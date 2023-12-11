@@ -14,10 +14,8 @@ const int PIN_K3 = 5;
 const int PIN_K4 = 6;
 
 // digital IO pins for interaction with Tormach USB IO
-// Pin 11 on Arduino is connected to INPUT0 on USB IO board
 // Pin 12 on Arduino is connected to RELAY0NC on USB IO board
-// Pin Gnd on Arduino is connected to COMMON0 and INPUT0- on USB IO board
-const int PIN_TO_TORMACH = 11;
+// Pin Gnd on Arduino is connected to COMMON0 on USB IO board
 const int PIN_FROM_TORMACH = 12;
 
 // the key_delay is so we only register the button once
@@ -50,7 +48,6 @@ void setup() {
   pinMode(PIN_K4, INPUT_PULLUP);
 
   // Tormach IO
-  pinMode(PIN_TO_TORMACH, OUTPUT);
   pinMode(PIN_FROM_TORMACH, INPUT_PULLUP);
 
   // Note: It cannot really go this fast
@@ -62,9 +59,6 @@ void setup() {
   // get to "zero" position
   delay(key_delay);
   move();
-
-  // make sure we're not sending anything to Tormach at the beginning
-  digitalWrite(PIN_TO_TORMACH, LOW);
 
 } // setup
 
@@ -101,14 +95,6 @@ void move() {
   spinning = true;
 	stepper1.moveTo(x);
 } // move 
-
-void test_send_low() {
-  digitalWrite(PIN_TO_TORMACH, LOW);
-}
-
-void test_send_high() {
-  digitalWrite(PIN_TO_TORMACH, HIGH);
-}
 
 void loop() {
   
@@ -150,11 +136,7 @@ void loop() {
     // still turning
   } else {
     if (spinning) {
-      // set the pin HIGH temporarily so Tormach can send the stop
       spinning = false;
-      digitalWrite(PIN_TO_TORMACH, HIGH);
-      //delay(1000);
-      digitalWrite(PIN_TO_TORMACH, LOW);
     }
   }
 
