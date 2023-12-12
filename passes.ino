@@ -24,9 +24,14 @@ const int key_delay = 200;
 int pass = 0;
 int total = 12;
 
+int value_read = 0;
+
 long x = 0;
 
 bool spinning = false;
+
+bool integrations = false;
+bool integrations_set = false;
 
 // stepper
 // digital pin8 is PUL+
@@ -54,31 +59,49 @@ void setup() {
   stepper1.setMaxSpeed(400.0);
   stepper1.setAcceleration(400.0);
 
-  show();
+  //show();
 
   // get to "zero" position
   delay(key_delay);
   move();
 
+  integrations = integrations_prompt();
+
 } // setup
 
+void clear_lcd() {
+  String blanks = "                    ";
+  lcd.setCursor(0, 0);
+  lcd.print(blanks);
+  lcd.setCursor(0, 1);
+  lcd.print(blanks);
+}
+
+bool integrations_prompt() {
+  lcd.setCursor(0, 0);
+  lcd.print("Integrations?    "); // be sure to clear the last few characters
+  lcd.setCursor(0, 1);
+  lcd.print("top=Y bottom=N");
+}
+
 void show() {
+  clear_lcd();
   lcd.setCursor(0, 0);
   lcd.print("Pass:");  // 1st line on lcd display
-
-  // "clear" prior number
-  lcd.setCursor(6, 0);
-  lcd.print("   ");
 
   lcd.setCursor(7, 0);
   lcd.print(pass);
 
+  // indicator for integrations
+  lcd.setCursor(13, 0);
+  if (integrations) {
+    lcd.print("I=Y"); // yes, integrations is enabled
+  } else {
+    lcd.print("I=N"); // no
+  }
+
   lcd.setCursor(0, 1); // 2nd line on lcd display
   lcd.print("Total:");
-
-  // "clear" prior number
-  lcd.setCursor(6, 1);
-  lcd.print("   ");
 
   lcd.setCursor(7, 1);
   lcd.print(total);
@@ -99,6 +122,11 @@ void move() {
 void loop() {
   
   if (!digitalRead(PIN_K1)) {
+    if (!integrations_set) {
+      integrations = true;
+      integrations_set = true;
+      total++;
+    }
     total--;
     pass = 0;
     show();
@@ -120,27 +148,36 @@ void loop() {
   }
 
   if (!digitalRead(PIN_K4)) {
+    if (!integrations_set) {
+      integrations = false;
+      integrations_set = true;
+      pass--;
+    }
     pass++;
     show();
     delay(key_delay);
     move();
   }
 
-  /* if ((!spinning) && (digitalRead(PIN_FROM_TORMACH))) {
-      pass++;
-      show();
-      move();
-  } */
-
-  stepper1.run();
-  /*
-  if (stepper1.run()) {
-    // .run() returns true if it is still turning
-  } else {
-    // once the stepper is done turning, turn off our boolean
-    if (spinning) {
-      spinning = false;
+  if (integrations) {
+    // from docs: https://www.arduino.cc/reference/en/language/functions/digital-io/digitalread/
+    // "If the pin isn’t connected to anything, digitalRead() can return either HIGH or LOW (and this can change randomly)."
+    value_read = digitalRead(PIN_FROM_TORMACH);
+    if ((!spinning) && (value_read == HIGH)) {
+        pass++;
+        show();
+        move();
     }
-  } */
+    if (stepper1.run()) {
+      // .run() returns true if it is still turning
+    } else {
+      // once the stepper is done turning, turn off our boolean
+      if (spinning) {
+        spinning = false;
+      }
+    }
+  } else { // no integration
+    stepper1.run();
+  }
 
 } // loop
