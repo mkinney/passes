@@ -22,7 +22,7 @@ const int PIN_FROM_TORMACH = 12;
 const int key_delay = 200;
 
 int pass = 0;
-int total = 10;
+int total = 12;
 
 long x = 0;
 
@@ -126,12 +126,14 @@ void loop() {
     move();
   }
 
-  if ((!spinning) && (digitalRead(PIN_FROM_TORMACH))) {
+  /* if ((!spinning) && (digitalRead(PIN_FROM_TORMACH))) {
       pass++;
       show();
       move();
-  }
+  } */
 
+  stepper1.run();
+  /*
   if (stepper1.run()) {
     // .run() returns true if it is still turning
   } else {
@@ -139,6 +141,6 @@ void loop() {
     if (spinning) {
       spinning = false;
     }
-  }
+  } */
 
 } // loop
