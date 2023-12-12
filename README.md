@@ -2,12 +2,14 @@
 
 Wanted the ability to mill multiple sides of something (also known as 3+1 milling). For instance, to mill the chess piece the "knight", you need to mill multiple sides. Also, wanted the ability to cut gears, but did not really want to go the really manual dividing head route. When I saw this [video by Daniel Busby](https://www.youtube.com/watch?v=1Cl9l5O7EEI) , I was inspired to make something similar.
 
-I already had this item: [4 jaw chuck](https://a.aliexpress.com/_mOB9M1P) for when I setup a 4th axis on a PrintNC, I just needed a way to drive it. But, in the course of testing this, I swapped out the motor to [this one](https://www.amazon.com/gp/product/B0B6N36NQJ).
+I already had this item: [4 jaw chuck](https://a.aliexpress.com/_mOB9M1P) for when I setup a 4th axis on a PrintNC, I just needed a way to drive it. Note that in the course of working on this project, I swapped out the motor to [this one](https://www.amazon.com/gp/product/B0B6N36NQJ).
 
 I used double sided tape to hold the items in the project box. I also had to mill out the base of the chuck as they were slightly smaller than 3/8". I plan on using T-nuts to hold the chuck down on to the table.
 
+Here it is in operation on a manual mill (with the chuck held in a vise):
 ![](working.gif)
 
+The front of the project box:
 ![](front.jpg)
 
 
@@ -49,7 +51,9 @@ Typical use would be to change the number of passes you would want (example: 30 
 
 Integrates with Tormach mill using their [USB M-Code I/O Interface Kit](https://tormach.com/usb-m-code-io-interface-kit-32616.html)
 
-Here is how I wired it:
+When you power this device, be sure to press the top button to indicated that the integrations is connected. There is an indicator on the top right of the screen "I=Y" means the integrations mode is enabled. If you specify integrations, but nothing is connected on pin12, then the chuck will randomly start spinning as the Arduino "read" provides random input. [For more info](https://www.arduino.cc/reference/en/language/functions/digital-io/digitalread/)
+
+Wiring:
 ![](tormach_integration.png)
 
 Connect the USB of the 32616 to the PathPilot computer. Go into settings and enable the "USB IO Kit". Go to the Status tab to see logging as well as new buttons:
