@@ -47,6 +47,13 @@ The front of the project box:
 
 Typical use would be to change the number of passes you would want (example: 30 if you want 30 teeth gear). Make the first cut, then press the **+Pass** button to advance the chuck for the next cut. If you need to go back, you can press the **-Pass** button.
 
+Initial screen:
+![](integrations.jpg)
+
+Main screen:
+"I=N" means the "no integration" option was selected. It would show "I=Y" if the integrations option was selected.
+![](passes.jpg)
+
 # Tormach integration
 
 Integrates with Tormach mill using their [USB M-Code I/O Interface Kit](https://tormach.com/usb-m-code-io-interface-kit-32616.html)
